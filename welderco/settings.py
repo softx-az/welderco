@@ -24,8 +24,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 DEBUG = config('DEBUG',cast=bool)
 local = config('LOCAL',cast=bool)
-ALLOWED_HOSTS = ['*']
+
 SECRET_KEY = config('DJANGO_SECRET_KEY')
+
+# Hostları konkret yaz (wildcard yerinə prod üçün düzgün yol)
+ALLOWED_HOSTS = ['welder.az', 'www.welder.az']
+
+# Nginx arxasından gələn HTTPS-i Django-ya bildir
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# HTTPS domenləri üçün CSRF (POST formalar və admin üçün vacib)
+CSRF_TRUSTED_ORIGINS = ['https://welder.az', 'https://www.welder.az']
+
+# İstəyə görə: cookie-ləri də təhlükəsiz et (yalnız HTTPS-də lazımdır)
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 
