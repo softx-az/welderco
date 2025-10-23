@@ -28,7 +28,7 @@ local = config('LOCAL',cast=bool)
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # Hostları konkret yaz (wildcard yerinə prod üçün düzgün yol)
-ALLOWED_HOSTS = ['welder.az', 'www.welder.az']
+ALLOWED_HOSTS = ['*']
 
 # Nginx arxasından gələn HTTPS-i Django-ya bildir
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
