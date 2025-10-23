@@ -87,39 +87,25 @@ WSGI_APPLICATION = 'welderco.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 if local:
+    # ✅ Always use SQLite in local mode
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-            'OPTIONS': {
-            'timeout': 20,  # Increase the timeout value to 20 seconds
-        },
+            "OPTIONS": {
+                "timeout": 20,  # Increase timeout for better file lock handling
+            },
         }
     }
 
 else:
-    if DEBUG:
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql',
-                'NAME': config('DEBUG_DB_NAME'),
-                'USER': config('DEBUG_DB_USER'),
-                'PASSWORD': config('DEBUG_DB_PASSWORD'),
-                'HOST': 'localhost',
-                'PORT': '5432',
-            }
+    # ⚙️ For production "Coming Soon" (disable PostgreSQL)
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
         }
-    else:
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql',
-                'NAME': config('PROD_DB_NAME'),
-                'USER': config('PROD_DB_USER'),
-                'PASSWORD': config('PROD_DB_PASSWORD'),
-                'HOST': 'localhost',
-                'PORT': '5432',
-            }
-        }
+    }
 
 
 
